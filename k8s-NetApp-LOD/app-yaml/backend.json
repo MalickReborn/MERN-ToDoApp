@@ -1,0 +1,12 @@
+{
+    "version": 1,
+    "backendName": "ExampleBackend",
+    "storageDriverName": "ontap-nas",
+    "managementLIF": "192.168.217.101",
+    "dataLIF": "192.168.217.100",
+    "svm": "nfs-svm",
+    "username": "vsadmin",
+    "password": "Netapp01",
+    "autoExportCIDRs": ["192.168.217.0/24"],
+    "autoExportPolicy": true
+  }

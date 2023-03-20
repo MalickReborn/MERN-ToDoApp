@@ -1,0 +1,66 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    service: backend
+  name: backend
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      service: backend
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        service: backend
+    spec:
+      containers:
+      - env:
+        - name: DB_HOST
+          valueFrom:
+            configMapKeyRef:
+              key: DB_HOST
+              name: backend-env
+        - name: DB_NAME
+          valueFrom:
+            configMapKeyRef:
+              key: DB_NAME
+              name: backend-env
+        - name: DB_PASS
+          valueFrom:
+            configMapKeyRef:
+              key: DB_PASS
+              name: backend-env
+        - name: DB_PORT
+          valueFrom:
+            configMapKeyRef:
+              key: DB_PORT
+              name: backend-env
+        - name: DB_USER
+          valueFrom:
+            configMapKeyRef:
+              key: DB_USER
+              name: backend-env
+        - name: IS_DB_SRV
+          valueFrom:
+            configMapKeyRef:
+              key: IS_DB_SRV
+              name: backend-env
+        - name: JWT_SECRET
+          valueFrom:
+            configMapKeyRef:
+              key: JWT_SECRET
+              name: backend-env
+        - name: REFRESH_SECRET
+          valueFrom:
+            configMapKeyRef:
+              key: REFRESH_SECRET
+              name: backend-env
+        image: mmodi/backend:latest
+        imagePullPolicy: Always
+        name: backend
+        resources: {}
+      restartPolicy: Always
+      serviceAccountName: ""
