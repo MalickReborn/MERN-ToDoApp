@@ -1,9 +1,13 @@
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: ingress
+  name: 3tier-ingress
 spec:
   ingressClassName: nginx
+  defaultBackend:
+    resource:
+      kind: path
+      name: frontend-svc
   rules:
   - host: demo.com
     http:
