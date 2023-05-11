@@ -1,20 +1,9 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  labels:
-    service: frontend
-  name: frontend
+  name: react-app
 spec:
-  replicas: 1
-  selector:
-    matchLabels:
-      service: frontend
-  strategy:
-    type: Recreate
   template:
-    metadata:
-      labels:
-        service: frontend
     spec:
       initContainers:
       - name: envsub
@@ -26,13 +15,17 @@ spec:
         - name: REACT_APP_API_URL
           valueFrom:
             configMapKeyRef:
+              name: react-app-config
               key: REACT_APP_API_URL
-              name: frontend-env
+        volumeMounts:
+        - name: app
+          mountPath: /usr/src/app
       containers:
-        - image: mmodi/frontend:latest
-          imagePullPolicy: ""
-          name: frontend
-          resources: {}
-      restartPolicy: Always
-      serviceAccountName: ""
-status: {}
+      - name: react-app
+        image: your-react-app-image
+        volumeMounts:
+        - name: app
+          mountPath: /usr/src/app
+      volumes:
+      - name: app
+        emptyDir: {}
