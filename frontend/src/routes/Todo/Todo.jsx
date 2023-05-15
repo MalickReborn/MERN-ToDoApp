@@ -30,7 +30,7 @@ export default function Todo() {
   };
 
   const deleteData = async (id) => {
-    // const res = await services.deleteTodo(id)
+    const res = await services.deleteTodo(id)
     const d = [...data];
     const i = d.findIndex((el) => el._id === id);
     if (i !== -1) {
