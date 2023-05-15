@@ -16,18 +16,6 @@ spec:
       labels:
         service: frontend
     spec:
-      initContainers:
-      - name: envsub
-        image: node
-        command: ["sh", "-c"]
-        args:
-        - envsub /usr/src/app/public/env-config.template.js /usr/src/app/public/env-config.js
-        env:
-        - name: REACT_APP_API_URL
-          valueFrom:
-            configMapKeyRef:
-              key: REACT_APP_API_URL
-              name: frontend-env
       containers:
         - image: mmodi/frontend:latest
           imagePullPolicy: ""
