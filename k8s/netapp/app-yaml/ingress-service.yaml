@@ -1,0 +1,14 @@
+kind: Service
+apiVersion: v1
+metadata:
+  name: nginx-service
+  namespace: todoapp
+spec:
+  type: LoadBalancer
+  selector:
+    app: nginx-todoapp
+  ports:
+  - protocol: TCP
+    port: 80
+    targetPort: 80
+    name: nginx
